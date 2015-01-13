@@ -60,7 +60,7 @@ Index: dmenu-patches/dmenu/fuzzymatch.c
 ===================================================================
 --- /dev/null
 +++ dmenu-patches/dmenu/fuzzymatch.c
-@@ -0,0 +1,77 @@
+@@ -0,0 +1,78 @@
 +int
 +compare_distance(const void *a, const void *b) {
 +	Item const *da = *(Item **) a;
@@ -77,10 +77,11 @@ Index: dmenu-patches/dmenu/fuzzymatch.c
 +	/* bang - we have so much memory */
 +	Item *item;
 +	Item **fuzzymatches = NULL;
-+	matches = matchend = NULL;
 +	char c;
 +	int number_of_matches = 0, i, pidx, sidx, eidx;
 +	int text_len = strlen(text), itext_len;
++
++	matches = matchend = NULL;
 +
 +	/* suppress compiler warning for unused match function */
 +	if(0)
