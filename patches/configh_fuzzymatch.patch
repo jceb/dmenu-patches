@@ -1,0 +1,10 @@
+Index: dmenu-patches/dmenu/config.def.h
+===================================================================
+--- dmenu-patches.orig/dmenu/config.def.h
++++ dmenu-patches/dmenu/config.def.h
+@@ -15,3 +15,5 @@ static const char *outfgcolor  = "#00000
+ /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
+ static unsigned int lines = 0;
+ 
++/* TODO: static Bool casesensitive  = False; */
++#include "fuzzymatch.c"
