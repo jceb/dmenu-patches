@@ -60,7 +60,7 @@ Index: dmenu-patches/dmenu/fuzzymatch.c
 ===================================================================
 --- /dev/null
 +++ dmenu-patches/dmenu/fuzzymatch.c
-@@ -0,0 +1,78 @@
+@@ -0,0 +1,79 @@
 +int
 +compare_distance(const void *a, const void *b) {
 +	Item const *da = *(Item **) a;
@@ -109,8 +109,9 @@ Index: dmenu-patches/dmenu/fuzzymatch.c
 +			/* build list of matches */
 +			if(eidx != -1) {
 +				/* compute distance */
-+				/* TODO: should sidx be factored in in a better way? */
-+				item->distance = eidx - sidx;
++				/* factor in 30% of sidx and distance between eidx and total
++				 * text length .. let's see how it works */
++				item->distance = eidx - sidx + (itext_len - eidx + sidx) / 3;
 +				appenditem(item, &matches, &matchend);
 +				number_of_matches++;
 +			}
