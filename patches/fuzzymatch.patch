@@ -1,5 +1,6 @@
-Changes:
-- Add add fuzzy matching to dmenu
+Author: Jan Christoph Ebersbach <jceb@e-jc.de>
+URL: no url in suckless wiki yet
+Add add fuzzy matching to dmenu
 
 Index: dmenu-patches/dmenu/dmenu.c
 ===================================================================
