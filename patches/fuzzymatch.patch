@@ -1,5 +1,5 @@
 Author: Jan Christoph Ebersbach <jceb@e-jc.de>
-URL: no url in suckless wiki yet
+URL: http://tools.suckless.org/dmenu/patches/fuzzymatch
 Add add fuzzy matching to dmenu
 
 Index: dmenu-patches/dmenu/dmenu.c

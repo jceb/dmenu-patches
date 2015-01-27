@@ -25,4 +25,4 @@
 
 # Patch References
 
-* [fuzzymatch.patch](patches/fuzzymatch.patch)                           (no URL yet)
+* [fuzzymatch.patch](patches/fuzzymatch.patch)   (http://tools.suckless.org/dmenu/patches/fuzzymatch)
