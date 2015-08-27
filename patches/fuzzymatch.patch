@@ -6,7 +6,7 @@ Index: dmenu-patches/dmenu/dmenu.c
 ===================================================================
 --- dmenu-patches.orig/dmenu/dmenu.c
 +++ dmenu-patches/dmenu/dmenu.c
-@@ -23,12 +23,14 @@ struct Item {
+@@ -32,6 +32,7 @@ struct Item {
  	char *text;
  	Item *left, *right;
  	Bool out;
@@ -14,14 +14,15 @@ Index: dmenu-patches/dmenu/dmenu.c
  };
  
  static void appenditem(Item *item, Item **list, Item **last);
- static void calcoffsets(void);
+@@ -39,6 +40,7 @@ static void calcoffsets(void);
  static char *cistrstr(const char *s, const char *sub);
+ static void cleanup(void);
  static void drawmenu(void);
 +static void fuzzymatch(void);
  static void grabkeyboard(void);
  static void insert(const char *str, ssize_t n);
  static void keypress(XKeyEvent *ev);
-@@ -231,7 +233,7 @@ insert(const char *str, ssize_t n) {
+@@ -288,7 +290,7 @@ insert(const char *str, ssize_t n) {
  	if(n > 0)
  		memcpy(&text[cursor], str, n);
  	cursor += n;
@@ -30,7 +31,7 @@ Index: dmenu-patches/dmenu/dmenu.c
  }
  
  void
-@@ -264,7 +266,7 @@ keypress(XKeyEvent *ev) {
+@@ -321,7 +323,7 @@ keypress(XKeyEvent *ev) {
  
  		case XK_k: /* delete right */
  			text[cursor] = '\0';
@@ -39,7 +40,7 @@ Index: dmenu-patches/dmenu/dmenu.c
  			break;
  		case XK_u: /* delete left */
  			insert(NULL, 0 - cursor);
-@@ -393,7 +395,7 @@ keypress(XKeyEvent *ev) {
+@@ -454,7 +456,7 @@ keypress(XKeyEvent *ev) {
  		strncpy(text, sel->text, sizeof text - 1);
  		text[sizeof text - 1] = '\0';
  		cursor = strlen(text);
@@ -48,9 +49,9 @@ Index: dmenu-patches/dmenu/dmenu.c
  		break;
  	}
  	drawmenu();
-@@ -597,7 +599,7 @@ setup(void) {
+@@ -656,7 +658,7 @@ setup(void) {
  	}
- 	promptw = (prompt && *prompt) ? textw(dc, prompt) : 0;
+ 	promptw = (prompt && *prompt) ? TEXTW(prompt) : 0;
  	inputw = MIN(inputw, mw/3);
 -	match();
 +	fuzzymatch();
@@ -124,7 +125,7 @@ Index: dmenu-patches/dmenu/fuzzymatch.c
 +	if(number_of_matches) {
 +		/* initialize array with matches */
 +		if(!(fuzzymatches = realloc(fuzzymatches, number_of_matches * sizeof(Item*))))
-+			eprintf("cannot realloc %u bytes:", number_of_matches * sizeof(Item*));
++			die("cannot realloc %u bytes\n", number_of_matches * sizeof(Item*));
 +		for(i = 0, item = matches; item && i < number_of_matches; i++, item = item->right) {
 +			fuzzymatches[i] = item;
 +		}
