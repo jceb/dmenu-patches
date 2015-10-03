@@ -6,32 +6,32 @@ Index: dmenu-patches/dmenu/dmenu.c
 ===================================================================
 --- dmenu-patches.orig/dmenu/dmenu.c
 +++ dmenu-patches/dmenu/dmenu.c
-@@ -32,6 +32,7 @@ struct Item {
+@@ -33,6 +33,7 @@ struct Item {
  	char *text;
  	Item *left, *right;
- 	Bool out;
+ 	bool out;
 +	int distance;
  };
  
- static void appenditem(Item *item, Item **list, Item **last);
-@@ -39,6 +40,7 @@ static void calcoffsets(void);
- static char *cistrstr(const char *s, const char *sub);
+ static void appenditem(Item *, Item **, Item **);
+@@ -40,6 +41,7 @@ static void calcoffsets(void);
+ static char *cistrstr(const char *, const char *);
  static void cleanup(void);
  static void drawmenu(void);
 +static void fuzzymatch(void);
  static void grabkeyboard(void);
- static void insert(const char *str, ssize_t n);
- static void keypress(XKeyEvent *ev);
-@@ -288,7 +290,7 @@ insert(const char *str, ssize_t n) {
- 	if(n > 0)
+ static void insert(const char *, ssize_t);
+ static void keypress(XKeyEvent *);
+@@ -226,7 +228,7 @@ insert(const char *str, ssize_t n)
+ 	if (n > 0)
  		memcpy(&text[cursor], str, n);
  	cursor += n;
 -	match();
 +	fuzzymatch();
  }
  
- void
-@@ -321,7 +323,7 @@ keypress(XKeyEvent *ev) {
+ static void
+@@ -260,7 +262,7 @@ keypress(XKeyEvent *ev)
  
  		case XK_k: /* delete right */
  			text[cursor] = '\0';
@@ -40,7 +40,7 @@ Index: dmenu-patches/dmenu/dmenu.c
  			break;
  		case XK_u: /* delete left */
  			insert(NULL, 0 - cursor);
-@@ -454,7 +456,7 @@ keypress(XKeyEvent *ev) {
+@@ -393,7 +395,7 @@ keypress(XKeyEvent *ev)
  		strncpy(text, sel->text, sizeof text - 1);
  		text[sizeof text - 1] = '\0';
  		cursor = strlen(text);
@@ -49,7 +49,7 @@ Index: dmenu-patches/dmenu/dmenu.c
  		break;
  	}
  	drawmenu();
-@@ -656,7 +658,7 @@ setup(void) {
+@@ -599,7 +601,7 @@ setup(void)
  	}
  	promptw = (prompt && *prompt) ? TEXTW(prompt) : 0;
  	inputw = MIN(inputw, mw/3);
