@@ -2,19 +2,20 @@ Author: Jan Christoph Ebersbach <jceb@e-jc.de>
 URL: http://tools.suckless.org/dmenu/patches/fuzzymatch
 Add add fuzzy matching to dmenu
 
-diff --git dmenu-patches.orig/dmenu/dmenu.c dmenu-patches/dmenu/dmenu.c
-index 4f22ffe..c2fc3ee 100644
+Index: dmenu-patches/dmenu/dmenu.c
+===================================================================
 --- dmenu-patches.orig/dmenu/dmenu.c
 +++ dmenu-patches/dmenu/dmenu.c
-@@ -33,6 +33,7 @@ struct item {
+@@ -31,7 +31,7 @@ enum { SchemeNorm, SchemeSel, SchemeOut,
+ struct item {
  	char *text;
  	struct item *left, *right;
- 	bool out;
-+	int distance;
+-	int out;
++	int out, distance;
  };
  
  static char text[BUFSIZ] = "";
-@@ -254,6 +255,86 @@ match(void)
+@@ -253,6 +253,86 @@ match(void)
  	calcoffsets();
  }
  
@@ -101,7 +102,7 @@ index 4f22ffe..c2fc3ee 100644
  static void
  insert(const char *str, ssize_t n)
  {
-@@ -264,7 +345,7 @@ insert(const char *str, ssize_t n)
+@@ -263,7 +343,7 @@ insert(const char *str, ssize_t n)
  	if (n > 0)
  		memcpy(&text[cursor], str, n);
  	cursor += n;
@@ -110,7 +111,7 @@ index 4f22ffe..c2fc3ee 100644
  }
  
  static size_t
-@@ -309,7 +390,7 @@ keypress(XKeyEvent *ev)
+@@ -308,7 +388,7 @@ keypress(XKeyEvent *ev)
  
  		case XK_k: /* delete right */
  			text[cursor] = '\0';
@@ -119,7 +120,7 @@ index 4f22ffe..c2fc3ee 100644
  			break;
  		case XK_u: /* delete left */
  			insert(NULL, 0 - cursor);
-@@ -443,7 +524,7 @@ keypress(XKeyEvent *ev)
+@@ -442,7 +522,7 @@ keypress(XKeyEvent *ev)
  		strncpy(text, sel->text, sizeof text - 1);
  		text[sizeof text - 1] = '\0';
  		cursor = strlen(text);
@@ -128,7 +129,7 @@ index 4f22ffe..c2fc3ee 100644
  		break;
  	}
  	drawmenu();
-@@ -585,7 +666,7 @@ setup(void)
+@@ -584,7 +664,7 @@ setup(void)
  	}
  	promptw = (prompt && *prompt) ? TEXTW(prompt) : 0;
  	inputw = MIN(inputw, mw/3);
