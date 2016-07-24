@@ -10,4 +10,4 @@ Index: dmenu-patches/dmenu/config.def.h
 +	"Hack:size=8.5:antialias=true:autohint=false"
  };
  static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
- static const char *normbgcolor = "#222222"; /* -nb option; normal background                 */
+ static const char *colors[SchemeLast][2] = {

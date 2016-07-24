@@ -2,8 +2,8 @@ Index: dmenu-patches/dmenu/config.def.h
 ===================================================================
 --- dmenu-patches.orig/dmenu/config.def.h
 +++ dmenu-patches/dmenu/config.def.h
-@@ -15,6 +15,7 @@ static const char *outbgcolor  = "#00fff
- static const char *outfgcolor  = "#000000";
+@@ -15,6 +15,7 @@ static const char *colors[SchemeLast][2]
+ };
  /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
  static unsigned int lines      = 0;
 +/* TODO: static Bool casesensitive  = False; */
