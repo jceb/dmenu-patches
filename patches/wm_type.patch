@@ -9,9 +9,9 @@ Index: dmenu-patches/dmenu/dmenu.c
 -static Atom clip, utf8;
 +static Atom clip, utf8, type, dock;
  static Display *dpy;
- static Window root, win;
+ static Window root, parentwin, win;
  static XIC xic;
-@@ -613,6 +613,8 @@ setup(void)
+@@ -637,6 +637,8 @@ setup(void)
  
  	clip = XInternAtom(dpy, "CLIPBOARD",   False);
  	utf8 = XInternAtom(dpy, "UTF8_STRING", False);
@@ -20,9 +20,9 @@ Index: dmenu-patches/dmenu/dmenu.c
  
  	/* calculate menu geometry */
  	bh = drw->fonts->h + 2;
-@@ -666,6 +668,8 @@ setup(void)
- 	                    DefaultDepth(dpy, screen), CopyFromParent,
- 	                    DefaultVisual(dpy, screen),
+@@ -692,6 +694,8 @@ setup(void)
+ 	win = XCreateWindow(dpy, parentwin, x, y, mw, mh, 0,
+ 	                    CopyFromParent, CopyFromParent, CopyFromParent,
  	                    CWOverrideRedirect | CWBackPixel | CWEventMask, &swa);
 +	XChangeProperty(dpy, win, type, XA_ATOM, 32, PropModeReplace,
 +			(unsigned char *) &dock, 1);

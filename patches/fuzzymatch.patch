@@ -15,7 +15,7 @@ Index: dmenu-patches/dmenu/dmenu.c
  };
  
  static char text[BUFSIZ] = "";
-@@ -244,6 +244,86 @@ match(void)
+@@ -263,6 +263,86 @@ match(void)
  	calcoffsets();
  }
  
@@ -102,7 +102,7 @@ Index: dmenu-patches/dmenu/dmenu.c
  static void
  insert(const char *str, ssize_t n)
  {
-@@ -254,7 +334,7 @@ insert(const char *str, ssize_t n)
+@@ -273,7 +353,7 @@ insert(const char *str, ssize_t n)
  	if (n > 0)
  		memcpy(&text[cursor], str, n);
  	cursor += n;
@@ -111,7 +111,7 @@ Index: dmenu-patches/dmenu/dmenu.c
  }
  
  static size_t
-@@ -299,7 +379,7 @@ keypress(XKeyEvent *ev)
+@@ -318,7 +398,7 @@ keypress(XKeyEvent *ev)
  
  		case XK_k: /* delete right */
  			text[cursor] = '\0';
@@ -120,7 +120,7 @@ Index: dmenu-patches/dmenu/dmenu.c
  			break;
  		case XK_u: /* delete left */
  			insert(NULL, 0 - cursor);
-@@ -433,7 +513,7 @@ keypress(XKeyEvent *ev)
+@@ -452,7 +532,7 @@ keypress(XKeyEvent *ev)
  		strncpy(text, sel->text, sizeof text - 1);
  		text[sizeof text - 1] = '\0';
  		cursor = strlen(text);
@@ -129,7 +129,7 @@ Index: dmenu-patches/dmenu/dmenu.c
  		break;
  	}
  	drawmenu();
-@@ -576,7 +656,7 @@ setup(void)
+@@ -603,7 +683,7 @@ setup(void)
  	}
  	promptw = (prompt && *prompt) ? TEXTW(prompt) - lrpad / 4 : 0;
  	inputw = MIN(inputw, mw/3);
