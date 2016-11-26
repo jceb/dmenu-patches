@@ -129,7 +129,7 @@ Index: dmenu-patches/dmenu/dmenu.c
  		break;
  	}
  	drawmenu();
-@@ -603,7 +683,7 @@ setup(void)
+@@ -604,7 +684,7 @@ setup(void)
  	}
  	promptw = (prompt && *prompt) ? TEXTW(prompt) - lrpad / 4 : 0;
  	inputw = MIN(inputw, mw/3);
