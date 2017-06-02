@@ -61,7 +61,7 @@ Index: dmenu-patches/dmenu/dmenu.c
 +			/* walk through item text */
 +			for (i = 0; i < itext_len && (c = it->text[i]); i++) {
 +				/* fuzzy match pattern */
-+				if (text[pidx] == c) {
++				if (!fstrncmp(&text[pidx], &c, 1)) {
 +					if(sidx == -1)
 +						sidx = i;
 +					pidx++;
@@ -77,7 +77,7 @@ Index: dmenu-patches/dmenu/dmenu.c
 +				/* add penalty if match starts late (log(sidx+2))
 +				 * add penalty for long a match without many matching characters */
 +				it->distance = log(sidx + 2) + (double)(eidx - sidx - text_len);
-+				fprintf(stderr, "distance %s %f\n", it->text, it->distance);
++				/* fprintf(stderr, "distance %s %f\n", it->text, it->distance); */
 +				appenditem(it, &matches, &matchend);
 +				number_of_matches++;
 +			}
