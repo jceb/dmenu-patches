@@ -22,8 +22,8 @@ Index: dmenu-patches/dmenu/dmenu.c
  };
  
  static char text[BUFSIZ] = "";
-@@ -263,6 +265,87 @@ match(void)
- 	calcoffsets();
+@@ -209,9 +211,94 @@ grabkeyboard(void)
+ 	die("cannot grab keyboard");
  }
  
 +int
@@ -108,57 +108,16 @@ Index: dmenu-patches/dmenu/dmenu.c
 +}
 +
  static void
- insert(const char *str, ssize_t n)
+ match(void)
  {
-@@ -273,7 +356,10 @@ insert(const char *str, ssize_t n)
- 	if (n > 0)
- 		memcpy(&text[cursor], str, n);
- 	cursor += n;
--	match();
-+	if (fuzzy)
++	if (fuzzy) {
 +		fuzzymatch();
-+	else
-+		match();
- }
++		return;
++	}
+ 	static char **tokv = NULL;
+ 	static int tokn = 0;
  
- static size_t
-@@ -318,7 +404,10 @@ keypress(XKeyEvent *ev)
- 
- 		case XK_k: /* delete right */
- 			text[cursor] = '\0';
--			match();
-+			if (fuzzy)
-+				fuzzymatch();
-+			else
-+				match();
- 			break;
- 		case XK_u: /* delete left */
- 			insert(NULL, 0 - cursor);
-@@ -452,7 +541,10 @@ keypress(XKeyEvent *ev)
- 		strncpy(text, sel->text, sizeof text - 1);
- 		text[sizeof text - 1] = '\0';
- 		cursor = strlen(text);
--		match();
-+		if (fuzzy)
-+			fuzzymatch();
-+		else
-+			match();
- 		break;
- 	}
- 	drawmenu();
-@@ -604,7 +696,10 @@ setup(void)
- 	}
- 	promptw = (prompt && *prompt) ? TEXTW(prompt) - lrpad / 4 : 0;
- 	inputw = MIN(inputw, mw/3);
--	match();
-+	if (fuzzy)
-+		fuzzymatch();
-+	else
-+		match();
- 
- 	/* create menu window */
- 	swa.override_redirect = True;
-@@ -656,6 +751,8 @@ main(int argc, char *argv[])
+@@ -656,6 +743,8 @@ main(int argc, char *argv[])
  			topbar = 0;
  		else if (!strcmp(argv[i], "-f"))   /* grabs keyboard before reading stdin */
  			fast = 1;
