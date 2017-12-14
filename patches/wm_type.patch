@@ -11,7 +11,7 @@ Index: dmenu-patches/dmenu/dmenu.c
  static Display *dpy;
  static Window root, parentwin, win;
  static XIC xic;
-@@ -645,6 +645,8 @@ setup(void)
+@@ -647,6 +647,8 @@ setup(void)
  
  	clip = XInternAtom(dpy, "CLIPBOARD",   False);
  	utf8 = XInternAtom(dpy, "UTF8_STRING", False);
@@ -20,10 +20,10 @@ Index: dmenu-patches/dmenu/dmenu.c
  
  	/* calculate menu geometry */
  	bh = drw->fonts->h + 2;
-@@ -700,6 +702,8 @@ setup(void)
- 	win = XCreateWindow(dpy, parentwin, x, y, mw, mh, 0,
+@@ -703,6 +705,8 @@ setup(void)
  	                    CopyFromParent, CopyFromParent, CopyFromParent,
  	                    CWOverrideRedirect | CWBackPixel | CWEventMask, &swa);
+ 	XSetClassHint(dpy, win, &ch);
 +	XChangeProperty(dpy, win, type, XA_ATOM, 32, PropModeReplace,
 +			(unsigned char *) &dock, 1);
  

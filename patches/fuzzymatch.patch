@@ -117,7 +117,7 @@ Index: dmenu-patches/dmenu/dmenu.c
  	static char **tokv = NULL;
  	static int tokn = 0;
  
-@@ -656,6 +743,8 @@ main(int argc, char *argv[])
+@@ -659,6 +746,8 @@ main(int argc, char *argv[])
  			topbar = 0;
  		else if (!strcmp(argv[i], "-f"))   /* grabs keyboard before reading stdin */
  			fast = 1;
