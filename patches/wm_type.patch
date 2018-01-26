@@ -11,7 +11,7 @@ Index: dmenu-patches/dmenu/dmenu.c
  static Display *dpy;
  static Window root, parentwin, win;
  static XIC xic;
-@@ -647,6 +647,8 @@ setup(void)
+@@ -646,6 +646,8 @@ setup(void)
  
  	clip = XInternAtom(dpy, "CLIPBOARD",   False);
  	utf8 = XInternAtom(dpy, "UTF8_STRING", False);
