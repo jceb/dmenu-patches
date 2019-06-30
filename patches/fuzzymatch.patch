@@ -14,7 +14,7 @@ Index: dmenu-patches/dmenu/dmenu.c
  #include <stdio.h>
  #include <stdlib.h>
  #include <string.h>
-@@ -34,6 +35,7 @@ struct item {
+@@ -32,6 +33,7 @@ struct item {
  	char *text;
  	struct item *left, *right;
  	int out;
@@ -22,7 +22,7 @@ Index: dmenu-patches/dmenu/dmenu.c
  };
  
  static char text[BUFSIZ] = "";
-@@ -212,9 +214,94 @@ grabkeyboard(void)
+@@ -210,9 +212,94 @@ grabkeyboard(void)
  	die("cannot grab keyboard");
  }
  
@@ -117,7 +117,7 @@ Index: dmenu-patches/dmenu/dmenu.c
  	static char **tokv = NULL;
  	static int tokn = 0;
  
-@@ -704,6 +791,8 @@ main(int argc, char *argv[])
+@@ -709,6 +796,8 @@ main(int argc, char *argv[])
  			topbar = 0;
  		else if (!strcmp(argv[i], "-f"))   /* grabs keyboard before reading stdin */
  			fast = 1;
