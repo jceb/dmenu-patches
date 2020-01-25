@@ -7,7 +7,7 @@ Index: dmenu-patches/dmenu/config.def.h
  /* -fn option overrides fonts[0]; default X11 font or font set */
  static const char *fonts[] = {
 -	"monospace:size=10"
-+	"Hack:size=8.5:antialias=true:autohint=false"
++	"JetBrains Mono:size=10:antialias=true:autohint=false"
  };
  static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
  static const char *colors[SchemeLast][2] = {
